@@ -4,8 +4,6 @@ const Users = require("../models/users")
 const bcrypt = require("bcrypt");
 const { sign } = require("../utils/jwt");
 
-
-
 const loginC = async (req, res) =>{
     try{
         const {email, password} = req.body;
@@ -17,7 +15,7 @@ const loginC = async (req, res) =>{
         if(error){
             return res.status(400).json({message:error.message})
         }
-        const user = await Users.findbyemail(email)
+        const user = Users.findbyemail(email)
 
         if(!user){
             return res.status(404).json({message:"Incorrect email or password"});
@@ -33,7 +31,8 @@ const loginC = async (req, res) =>{
           
         res.status(200).json({message:"Success" , token} )
     }catch(error){
-        return res.status(401).json({message:"Permission denied"})
+        // return res.status(401).json({message:"Permission denied"})
+        console.log(error.message);
     }
 }
 
@@ -46,26 +45,31 @@ const Registratisya = async (req, res) =>{
      email:Joi.string().email().required(),
      password:Joi.string().required()
     })
+
+
    
     const {error} = scheme.validate({name, email, password})
      
     if(error) return res.status(403).json({message:error.message})
-
-    const user = await Users.findbyemail(email)
-    console.log(user);
+    console.log("-----bnkjhghjk");
+    const user =  Users.findbyemail(email)
+    
     if(user){
         return res.status(400).json({message:"User already exists"})
     }
     // const role = user.user_role = "defaultUser";
-    const hashedpass = await bcrypt.hash(password, 12);
-    const newUser = await Users.register(name, email, hashedpass)
+    const hashedpass = await  bcrypt.hash(password, 12);
+    console.log("-----");
+    const newUser = Users.register(name, email, hashedpass)
+    console.log("---iujashdbh");
+    
 
     const token = sign({id:newUser.user_id, role:newUser.user_role});
         
      return res.status(201).json({message:"Successfull registration", token,newUser})
    }catch(error){
     // return res.status(401).json({message:"Permision denied"})
-    console.log(error.message);
+    console.log(error);
    }
 }
 

@@ -21,7 +21,7 @@ create database crm;
     )values(
         'avant',
         'avantadmin@gmail.com',
-        '$2a$12$E7lyFkUceYlqE7vxpOnNGePOgRbFjFhyqJBFqH0vQ2fbTyz9bYO6W',
+        '$2y$10$Dq96PxTk/MGp9EilBHAbGuW29jNTnXywQ0vViaV488FQ5kucOpZEm',
         'superadmin'
     );
 

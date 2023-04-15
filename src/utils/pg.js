@@ -6,11 +6,7 @@ const pool = new Pool({
 // mysql://user:password@hostname:port/database
 
 const fetchOne = async (SQL, ...values) => {
-  const client = await pool.connect().then(()=>{
-    console.log('Connected...')
-  }).catch(err=>{
-    console.log(err.message)
-  });
+  const client = await pool.connect()
 
   try {
     const {
@@ -26,11 +22,7 @@ const fetchOne = async (SQL, ...values) => {
 };
 
 const fetch = async (Sql, ...values) => {
-  const client = await pool.connect().then(()=>{
-    console.log('Connected...')
-  }).catch(err=>{
-    console.log(err.message)
-  });
+  const client = await pool.connect()
 
   try {
     const { rows } = await client.query(Sql, values.length ? values : null);

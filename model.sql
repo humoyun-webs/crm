@@ -8,7 +8,7 @@ create database crm;
         user_name varchar(255) not null,
         user_email varchar(64) not null unique,
         user_password text,
-        user_role user_role  default 'defaultUser' not null,
+        user_role  user_role default 'defaultUser' not null,
         user_created_at timestamp default current_timestamp,
         user_updated_at timestamp default null,
         user_isDelete BOOLEAN NOT NULL DEFAULT FALSE

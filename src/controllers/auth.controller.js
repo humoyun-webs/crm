@@ -64,8 +64,8 @@ const Registratisya = async (req, res) =>{
         
      return res.status(201).json({message:"Successfull registration", token,newUser})
    }catch(error){
-    return res.status(401).json({message:"Permision denied"})
-    // console.log(error.message);
+    // return res.status(401).json({message:"Permision denied"})
+    console.log(error.message);
    }
 }
 

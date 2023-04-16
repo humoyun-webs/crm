@@ -21,7 +21,7 @@ create database crm;
     )values(
         'avant',
         'avantadmin@gmail.com',
-        '$2y$10$Dq96PxTk/MGp9EilBHAbGuW29jNTnXywQ0vViaV488FQ5kucOpZEm',
+        '$2a$12$trCBy2mCaeIOHhEQ81zV9OuBuo24eRBaDvDesMM.FHhOqfpd6kRKa',
         'superadmin'
     );
 -- create table tasks(
@@ -35,8 +35,12 @@ create table task(
     task_desc text not null,
     created_at timestamp default current_timestamp,
     start_t int not null,
-    end_t int not null
-)
+    end_t int not null,
+    user_id int,
+    foreign key(user_id)
+    references users(user_id)
+    oN DELETE SET NULL
+);
 insert into task(
     task_title,
     task_desc,
@@ -47,7 +51,7 @@ insert into task(
     'Balue togen nima gap',
      12,
      13
-)
+);
 
 -- create table all_tasks(
 --     allts_id serial primary key not null,

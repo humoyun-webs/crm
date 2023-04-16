@@ -15,7 +15,7 @@ const loginC = async (req, res) =>{
         if(error){
             return res.status(400).json({message:error.message})
         }
-        const user = Users.findbyemail(email)
+        const user = await Users.findbyemail(email)
 
         if(!user){
             return res.status(404).json({message:"Incorrect email or password"});
@@ -31,8 +31,8 @@ const loginC = async (req, res) =>{
           
         res.status(200).json({message:"Success" , token} )
     }catch(error){
-        // return res.status(401).json({message:"Permission denied"})
-        console.log(error.message);
+        return res.status(401).json({message:"Permission denied"})
+        // console.log(error.message);
     }
 }
 
@@ -47,26 +47,28 @@ const Registratisya = async (req, res) =>{
     })
 
 
-   
     const {error} = scheme.validate({name, email, password})
      
     if(error) return res.status(403).json({message:error.message})
-    console.log("-----bnkjhghjk");
-    const user =  Users.findbyemail(email)
-    
+    // console.log("-----bnkjhghjk");
+    const user = await  Users.findbyemail(email);
+    // console.log("56789078654");
     if(user){
         return res.status(400).json({message:"User already exists"})
     }
-    // const role = user.user_role = "defaultUser";
-    const hashedpass = await  bcrypt.hash(password, 12);
-    console.log("-----");
-    const newUser = Users.register(name, email, hashedpass)
-    console.log("---iujashdbh");
     
+    if(typeof password !== 'string'){
+        return res.status(403).json({message:"Password must be a string"})
+    }
 
+    
+    const hashedpass = await   bcrypt.hash(password, 12);
+    // console.log("-----");
+    const newUser = await Users.register(name, email, hashedpass)
+    // console.log("sdfghjkhgfdf");
     const token = sign({id:newUser.user_id, role:newUser.user_role});
-        
-     return res.status(201).json({message:"Successfull registration", token,newUser})
+        // console.log("67ythghy76");
+     return res.status(201).json({message:"Successfull registration", token, newUser})
    }catch(error){
     // return res.status(401).json({message:"Permision denied"})
     console.log(error);
@@ -79,7 +81,6 @@ const getAllUser = async (req, res) =>{
 
         res.status(200).json(users)
     
-        
     }catch(error){
      console.log(error.message);
     }

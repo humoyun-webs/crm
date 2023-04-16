@@ -7,7 +7,7 @@ create database crm;
         userg_id text,
         user_name varchar(255) not null,
         user_email varchar(64) not null unique,
-        user_password text,
+        user_password varchar(64),
         user_role  user_role default 'defaultUser' not null,
         user_created_at timestamp default current_timestamp,
         user_updated_at timestamp default null,
@@ -24,7 +24,6 @@ create database crm;
         '$2y$10$Dq96PxTk/MGp9EilBHAbGuW29jNTnXywQ0vViaV488FQ5kucOpZEm',
         'superadmin'
     );
-
 -- create table tasks(
 --     tasks_id serial primary key not null,
 --     tasks_count int not null

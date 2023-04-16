@@ -7,8 +7,8 @@ const creatUser = 'Insert into users (user_email, user_password, user_role, user
 const cregister = 'Insert into users ( user_name, user_email, user_password)values($1, $2, $3) returning *';
 const deleteid = 'UPDATE users SET user_isDelete = true WHERE user_id = $1';
 // const home = "select * from "
-const google = "Insert into users (userg_id, user_name, user_email)values($1, $2, $3) "
-const homeget = ""
+// const google = "Insert into users (userg_id, user_name, user_email)values($1, $2, $3) "
+// const homeget = ""
 
 
 const register = (name, email, password) => fetchOne(cregister , name, email , password );

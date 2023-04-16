@@ -1,12 +1,13 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-    connectionString: "postgres://database-2.cqlfjodrkcqh.eu-west-2.rds.amazonaws.com",
+  connectionString:
+    "postgres://postgres:Reitmanz7@database-2.cqlfjodrkcqh.eu-west-2.rds.amazonaws.com:5432/crm",
 });
 // mysql://user:password@hostname:port/database
 
 const fetchOne = async (SQL, ...values) => {
-  const client = await pool.connect()
+  const client = await pool.connect();
 
   try {
     const {
@@ -22,7 +23,7 @@ const fetchOne = async (SQL, ...values) => {
 };
 
 const fetch = async (Sql, ...values) => {
-  const client = await pool.connect()
+  const client = await pool.connect();
 
   try {
     const { rows } = await client.query(Sql, values.length ? values : null);

@@ -50,28 +50,24 @@ const Registratisya = async (req, res) =>{
     const {error} = scheme.validate({name, email, password})
      
     if(error) return res.status(403).json({message:error.message})
-    // console.log("-----bnkjhghjk");
+    
     const user = await  Users.findbyemail(email);
-    // console.log("56789078654");
+    
     if(user){
         return res.status(400).json({message:"User already exists"})
-    }
-    
-    if(typeof password !== 'string'){
-        return res.status(403).json({message:"Password must be a string"})
     }
 
     
     const hashedpass = await   bcrypt.hash(password, 12);
-    // console.log("-----");
+
     const newUser = await Users.register(name, email, hashedpass)
-    // console.log("sdfghjkhgfdf");
+    
     const token = sign({id:newUser.user_id, role:newUser.user_role});
-        // console.log("67ythghy76");
+        
      return res.status(201).json({message:"Successfull registration", token, newUser})
    }catch(error){
-    // return res.status(401).json({message:"Permision denied"})
-    console.log(error);
+    return res.status(401).json({message:"Permission denied"})
+    // console.log(error);
    }
 }
 

@@ -39,6 +39,7 @@ const loginC = async (req, res) =>{
 const Registratisya = async (req, res) =>{
    try{
     const {name, email, password} = req.body;
+    
 
     const scheme = Joi.object({
      name:Joi.string().required(),

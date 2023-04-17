@@ -41,17 +41,18 @@ create table task(
     references users(user_id)
     oN DELETE SET NULL
 );
-insert into task(
-    task_title,
-    task_desc,
-    start_t,
-    end_t
-)values(
-    'Baluuu',
-    'Balue togen nima gap',
-     12,
-     13
-);
+-- insert into task(
+--     task_title,
+--     task_desc,
+--     start_t,
+--     end_t,
+--     user_id
+-- )values(
+--     'Baluuu',
+--     'Balue togen nima gap',
+--      12,
+--      13
+-- );
 
 -- create table all_tasks(
 --     allts_id serial primary key not null,
@@ -156,14 +157,6 @@ CREATE TABLE product(
         REFERENCES users(user_id)
            ON DELETE SET NULL
 );
-
-
-
-
-
-
-
-
 
 
 

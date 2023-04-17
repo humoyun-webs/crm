@@ -8,7 +8,6 @@ const { addUser } = require("../controllers/user.controller")
 const { addplan, getplans, editplan, deleteplan } = require("../controllers/defaultuser")
 
 
-
 const routes = Router()
 
 routes.post("/auth/login", loginC)

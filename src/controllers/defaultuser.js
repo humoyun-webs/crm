@@ -2,8 +2,8 @@ const Joi = require("joi")
 const Dusers = require("../models/defoultusertodo")
 
 const addplan = async(req,res) =>{
-    const {title, desc, start, end} = req.body;
-
+    const {title, desc, start, end, user_id} = req.body;
+    
     const scheme = Joi.object({
      title:Joi.string().min(5).max(32).required(),
      desc:Joi.string().required(),
@@ -14,20 +14,18 @@ const addplan = async(req,res) =>{
      
     if(error) return res.status(403).json({message:error.message})
 
-    const newProduct = await Dusers.planadd(title, desc)
-     return res.status(201).json({message:"User created"})
+    const newProduct = await Dusers.planadd(title, desc,start,end, user_id)
+     return res.status(201).json({message:"Plan created"})
 }
-
 
 const getplans = async(req,res) =>{
     try{
 
-        // const {} = req.body
-        const products = await Dusers.allplans()
-             
+        const plans = await Dusers.allplans()
         
-        return res.status(200).json(products)
-    
+                     
+        return res.status(200).json({plans})
+        
         
     }catch(error){
      console.log(error.message);

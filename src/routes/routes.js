@@ -8,22 +8,21 @@ const { addUser } = require("../controllers/user.controller")
 const { addplan, getplans, editplan, deleteplan } = require("../controllers/defaultuser")
 
 
-const routes = Router()
-
-routes.post("/auth/login", loginC)
+ const routes = Router()
+ 
+ routes.post("/auth/login", loginC)
 .post("/register", Registratisya)
 // .get('/google',passport.authenticate('google', { scope: ['profile','email'] }))
 // .get('/google/callback',passport.authenticate('google', { failureRedirect: '/get/users' }),function(req, res) { res.redirect('/')})
 .post("/user",isAuth, CheckRole("superadmin"),  addUser)
 .get("/get/users",isAuth,  getAllUser)
 .delete("/user/:id", isAuth,CheckRole("superadmin","director"), deleteUsers)
-
 // default user  
 .get("/def/user",isAuth,getplans)
 .post("/def/user", isAuth,addplan)
-.put("/def/user",isAuth,editplan)
-.delete("/def/user",isAuth, deleteplan)
-
+.put("/def/user/:id",isAuth,editplan)
+.delete("/def/user/:id",isAuth, deleteplan)
+ 
 module.exports = {routes}
 
 // CheckRole("superadmin","director"),

@@ -89,7 +89,7 @@ const deleteUsers = async (req,res) =>{
     return res.status(404).json({message:"user is not found"})
    }
    const user = await Users.deleteUser(id)
-   res.status(200).json({message:"successfull updated", user})
+   res.status(200).json({message:"successfull deleted", user})
 }
 module.exports = {
     loginC,

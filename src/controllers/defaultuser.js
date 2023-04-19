@@ -58,7 +58,7 @@ const editplan = async (req,res) =>{
         
        if(error) return res.status(403).json({message:error.message})
        
-    const plan = await (title, desc, start,end,id)
+    const plan = await Dusers.updateplan(title, desc, start,end,id)
 
     res.status(201).json({message:"edit success"})
     }

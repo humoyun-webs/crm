@@ -1,9 +1,11 @@
 create database crm;
 
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
     create type user_role as enum('director','superadmin','teamlead', 'user','defaultUser');
 
         create table users(
-        user_id serial primary key not null,
+        user_id uuid primary key DEFAULT uuid_generate_v4() null,
         userg_id text,
         user_name varchar(255) not null,
         user_email varchar(64) not null unique,
@@ -12,7 +14,8 @@ create database crm;
         user_created_at timestamp default current_timestamp,
         user_updated_at timestamp default null,
         user_isDelete BOOLEAN NOT NULL DEFAULT FALSE
-        );
+        );       
+
     insert into users(
         user_name,
         user_email,
@@ -28,19 +31,70 @@ create database crm;
 --     tasks_id serial primary key not null,
 --     tasks_count int not null
 -- )
-
+-------------------------------------------------------------------------
 create table task(
-    task_id serial primary key not null,
-    task_title varchar(32) not null,
+    task_id uuid primary key DEFAULT uuid_generate_v4() null,
+    task_title varchar(64) not null,
     task_desc text not null,
     created_at timestamp default current_timestamp,
     start_t int not null,
     end_t int not null,
-    user_id int,
+    user_id uuid,
     foreign key(user_id)
     references users(user_id)
     oN DELETE SET NULL
 );
+CREATE TABLE task (
+    task_id uuid PRIMARY KEY DEFAULT uuid_generate_v4() NULL,
+    task_title varchar(64) NOT NULL,
+    task_desc text NOT NULL,
+    created_at timestamp DEFAULT current_timestamp,
+    start_t int NOT NULL,
+    end_t int NOT NULL,
+    user_id uuid,
+    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE SET NULL
+);
+------------------------------------------------------------------------------------------------
+create table todo_def_u(
+    todo_id uuid primary key DEFAULT uuid_generate_v4() null,
+    todo_title varchar(32) not null,
+    todo_desc text not null,
+    created_at timestamp default current_timestamp,
+    ended_at int not null,
+    user_id int not null,
+    foreign key(user_id)
+    references users(user_id)
+);
+CREATE TABLE todo_def_u (
+    todo_id uuid PRIMARY KEY DEFAULT uuid_generate_v4() NULL,
+    todo_title varchar(32) NOT NULL,
+    todo_desc text NOT NULL,
+    created_at timestamp DEFAULT current_timestamp,
+    ended_at int NOT NULL,
+    user_id uuid NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+----------------------------------------------------------------------------------------------------------------
+
+
+-- create table user_add_todo(
+--  add_todo_id serial primary key  not null,
+--  todo_id int not null,
+--  user_id int not null,
+--  foreign key(user_id)
+--  references users(user_id),
+--  foreign key(todo_id)
+--  references todo_def_u(todo_id)
+-- )
+
+
+
+
+
+
+
+
+
 -- insert into task(
 --     task_title,
 --     task_desc,
@@ -64,33 +118,6 @@ create table task(
 --     references tasks(tasks_id) on delete set null
     
 -- )
-
-create table todo_def_u(
-    todo_id serial primary key  not null,
-    todo_title varchar(32) not null,
-    todo_desc text not null,
-    created_at timestamp default current_timestamp,
-    ended_at timestamp default current_timestamp
-);
-
-create table user_add_todo(
- add_todo_id serial primary key  not null,
- todo_id int not null,
- user_id int not null,
- foreign key(user_id)
- references users(user_id),
- foreign key(todo_id)
- references todo_def_u(todo_id)
-)
-
-
-
-
-
-
-
-
-
 
 
 

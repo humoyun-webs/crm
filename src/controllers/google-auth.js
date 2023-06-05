@@ -3,7 +3,6 @@ const passport = require("passport")
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("../models/users")
 
-
 passport.serializeUser((user,done) =>{
   done(null,user.id)
 })
@@ -17,27 +16,12 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:1234/google/callback"
   },
-  async function(accessToken, refreshToken, profile, cb) {
-    const newuser = await User.googleby({ id: profile.id},{name: profile._json.name},{email:profile._json.email}, function (err, user) {
-      return cb(err, user);
+ 
+   async function(accessToken, refreshToken, profile, cb) {
+       const newuser = await  User.googleby({ id: profile.id},{name: profile._json.name},{email:profile._json.email}, function (err, user) {
+       return cb(err, user);
     });
-    console.log(newuser);
-    console.log(profile);
+    console.log(cb);
     cb(null,profile)
   }
 ));
-
-const google = (req,res) =>{
- try{
-  passport.authenticate("google",{scope:"profile"}) 
- }catch(error){
-console.log(error.message);
- }
-}
-const googlec =  (req,res) =>{
-
-}
-module.exports = {
-  //  google,
-  //  googlec
-}

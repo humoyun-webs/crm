@@ -2,7 +2,6 @@ const Joi = require("joi")
 const Users = require("../models/users.js")
 const bcrypt = require("bcrypt")
 
-
 const addUser = async (req, res) =>{
     const {email,password,name,role} = req.body;
     const scheme = Joi.object({
@@ -26,6 +25,27 @@ const addUser = async (req, res) =>{
     const newUser = await Users.create(email,hashpassword,role,name)
     res.status(200).json({message:"success",newUser});
 }
+const getAllUser = async (req, res) =>{
+    try{
+        const users = await Users.allusers()
+        
+        return res.status(200).json(users);
+    
+    }catch(error){
+    console.log(error.message);
+    }
+}
+
+const deleteUsers = async (req,res) =>{
+    const {id} = req.params;
+    if(!id){
+     return res.status(404).json({message:"user is not found"})
+    }
+    const user = await Users.deleteUser(id)
+    res.status(200).json({message:"successfull deleted", user})
+ }
 module.exports = {
     addUser,
+    deleteUsers,
+    getAllUser
 }

@@ -2,7 +2,7 @@ const { verify } = require("../utils/jwt");
 
 const CheckRole = (role) => {
   return (req, res, next) => {
-    const { user } = req
+    const { user } = req;
     console.log(user);
 
     if (role === "superadmin") {

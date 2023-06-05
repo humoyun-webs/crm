@@ -1,8 +1,10 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
+  // connectionString:
+  //   "postgres://postgres:Reitmanz7@database-2.cqlfjodrkcqh.eu-west-2.rds.amazonaws.com:5432/crm",
   connectionString:
-    "postgres://postgres:Reitmanz7@database-2.cqlfjodrkcqh.eu-west-2.rds.amazonaws.com:5432/crm",
+    "postgres://postgres:reitmanz@localhost:5432/crm",
 });
 // mysql://user:password@hostname:port/database
 

@@ -11,7 +11,7 @@ try{
     
     const user = verify(token)
     req.user = user;
-    // console.log(user);
+    
     next()
 
 }catch(error){

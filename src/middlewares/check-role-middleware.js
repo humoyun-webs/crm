@@ -11,7 +11,7 @@ const CheckRole = (role) => {
     } else if (role === "director") {
       if (user.role === "director" || user.role === role) return next();
       else return res.status(403).json({ message: "Permission denied" });
-    } else if (role === "user") {
+    } else if (role === "user"){
       if (user.role === role) return next();
       else return res.status(403).json({ message: "Permission denied" });
     }else{

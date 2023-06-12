@@ -14,6 +14,12 @@ app.use(routes);
 
 // app.use(passport.initialize());
 
+
+app.use(session({
+    secret: process.env.GOOGLE_CLIENT_SECRET,
+    resave: false,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors())

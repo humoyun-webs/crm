@@ -44,6 +44,7 @@ create table task(
     references users(user_id)
     oN DELETE SET NULL
 );
+
 CREATE TABLE task (
     task_id uuid PRIMARY KEY DEFAULT uuid_generate_v4() NULL,
     task_title varchar(64) NOT NULL,
@@ -199,3 +200,37 @@ SELECT f.user_name, t.product_name, t.product_price, t.product_price from users 
 SELECT * from users as f INNER JOIN product ON f.user_id=product.user_id;
 SELECT * from product;
 SELECT * from users;
+
+
+
+    insert into book(
+        title,
+        author,
+        price,
+        amount
+    )values(
+    'Мастер и Маргарита',
+     'Булгаков М.А.',
+        670.99,
+        3
+    ),(
+    'Белая гвардия',
+     'Булгаков М.А.',
+       540.50,
+        5
+    ),(
+    'Идиот',
+     'Достоевский Ф.М.',
+       460.00,
+        10
+    ),(
+    'Братья Карамазовы',
+     'Достоевский Ф.М.',
+        799.01,
+        2
+    ),(
+    'Стихотворения и поэмы',
+        'Есенин С.А.',
+        650,
+        15
+    );
